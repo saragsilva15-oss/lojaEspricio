@@ -56,8 +56,19 @@ const clienteModel = {
             throw error;
 
         }
-    }
+    },
 
+    buscarEmail: async (emailCliente) => {
+        const pool = await getConnection();
+
+        let querySLQ = 'SELECT * FROM Clientes WHERE emailCliente = @emailCliente';
+
+        const clientes = await pool.request()
+            .input('emailCliente', sql.VarChar(11), emailCliente)
+            .query(querySLQ);
+
+        return clientes.recordset;
+    }
 }
 
 module.exports = { clienteModel };
