@@ -2,8 +2,14 @@
 const { sql, getConnection } = require("../config/db");
 
 const produtoModel = {
-
+/**
+ * @async
+ * @function buscarTodos
+ * @returns  {Promise<Array>} Retorna uma lista com todos os produtos
+ * @throws Mostrar no console e propaga o erro caso a busca falhe
+ */
     buscarTodos: async () => {
+
         try {
 
             const pool = await getConnection();

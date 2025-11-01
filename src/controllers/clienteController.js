@@ -1,5 +1,6 @@
 const { default: message } = require("tedious/lib/message");
 const { clienteModel } = require("../models/clienteModel");
+const bcrypt = require('bcrypt');
 
 const clienteController = {
     /*
@@ -34,10 +35,10 @@ const clienteController = {
 
     criarCliente: async(req, res)=>{
         try {
-            const {nomeCliente, cpfCliente} = req.body;
+            const {nomeCliente, cpfCliente, emailCliente, senhaCliente} = req.body; //cliente ira ter que inserir 
 
-            if (nomeCliente == undefined || cpfCliente == undefined) {
-                return res.status(400).json({erro :'Campos obrigatórios não preenchidos'});
+            if (nomeCliente == undefined || cpfCliente == undefined || emailCliente==undefined || senhaCliente==undefined) {
+                return res.status(400).json({erro :'Campos obrigatórios não preenchidos'}); // todos precisar ser definidos
             }
 
             const clientes = await clienteModel.buscarCpf(cpfCliente);
@@ -45,8 +46,11 @@ const clienteController = {
             if (clientes.length > 0) {
                 return res.status(409).json({erro:'CPF já existe!'});
             }
+            const saltRounds=10; // irá rodar 10 vezes para fazer a senha
+
+            const senhaCriptografada =bcrypt.hashSync(senhaCliente, saltRounds);
             
-            await clienteModel.inserirCliente(nomeCliente, cpfCliente);
+            await clienteModel.inserirCliente(nomeCliente, cpfCliente, emailCliente, senhaCriptografada);
             res.status(201).json({message: 'Cliente cadastrado com sucesso'});
 
         } catch (error) {
@@ -56,5 +60,4 @@ const clienteController = {
         }
     }
 }
-
 module.exports = { clienteController };
