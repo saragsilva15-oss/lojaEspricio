@@ -61,8 +61,8 @@ const produtoModel = {
             const pool=await getConnection();
 
             //Evitar SQL INJECTION
-            const querySLQ =`
-            UPDATE Produto
+            const querySQL =`
+            UPDATE Produtos
             SET nomeProduto =@nomeProduto,
             precoProduto = @precoProduto
             WHERE idProduto = @idProduto
@@ -70,12 +70,30 @@ const produtoModel = {
             await pool.request()
             .input('nomeProduto', sql.VarChar(100), nomeProduto)
             .input('precoProduto', sql.Decimal(10,2), precoProduto )
-            .query(querySLQ);
+            .input('idProduto', sql.UniqueIdentifier, idProduto )
+            .query(querySQL);
         } catch (error) {
             console.error('Erro ao atualizar produto:', error);
             throw error;
         }
 
+        
+    },
+    deletarProduto: async (idProduto) => {
+        try {
+            const pool =await getConnection();
+            const querySLQ = `
+            DELETE FROM Produtos
+            WHERE idProduto = @idProduto`
+
+            await pool.request()
+            .input("idProduto", sql.UniqueIdentifier, idProduto)
+            .query(querySLQ);
+
+        } catch (error) {
+            console.error('Erro ao deletar produto:', error);
+            throw error;
+        }
         
     }
 };

@@ -1,0 +1,139 @@
+type: collection.insomnia.rest/5.0
+name: My first collection
+meta:
+  id: wrk_26764c4d02cf466781808829d2835aec
+  created: 1761424438127
+  modified: 1761424438127
+  description: ""
+collection:
+  - name: Produtos
+    meta:
+      id: fld_4e31fef772be4def97ad800c5b9a1299
+      created: 1761999933813
+      modified: 1761999933813
+      sortKey: -1761999933813
+      description: ""
+    children:
+      - url: localhost:8081/produtos/7C13917C-9293-4A6A-BF2E-3D19995DD084
+        name: Atualizar Produto
+        meta:
+          id: req_35a0bc48d8dd4d8c83f9dd4306762a33
+          created: 1761424438177
+          modified: 1762005797946
+          isPrivate: false
+          description: ""
+          sortKey: -1761999938975
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nomeProduto": "Abacaxi"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/produtos
+        name: Listar Produtos
+        meta:
+          id: req_03189fc47aba40ce9d2dc3a9d13af6cb
+          created: 1761999924482
+          modified: 1761999960560
+          isPrivate: false
+          description: ""
+          sortKey: -1761999939075
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/produtos/7C13917C-9293-4A6A-BF2E-3D19995DD084
+        name: Deletar Produto
+        meta:
+          id: req_8e84168403af41149befeea8010e51b8
+          created: 1762005818242
+          modified: 1762005822006
+          isPrivate: false
+          description: ""
+          sortKey: -1761711853627.5
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nomeProduto": "Abacaxi"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/produtos
+        name: Criar Produtos
+        meta:
+          id: req_12459831d3f0496eb9158ebc8d5d61e5
+          created: 1762005936533
+          modified: 1762005994781
+          isPrivate: false
+          description: ""
+          sortKey: -1761999939025
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	
+            "nomeProduto":"abacaxi",
+            	"precoP"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_aba063d6456b44ba91d4f1252b35ca111de2ae79
+    created: 1761424438150
+    modified: 1761424438150
+environments:
+  name: Base Environment
+  meta:
+    id: env_aba063d6456b44ba91d4f1252b35ca111de2ae79
+    created: 1761424438138
+    modified: 1761424438138
+    isPrivate: false

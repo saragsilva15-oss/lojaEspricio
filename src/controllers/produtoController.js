@@ -49,19 +49,19 @@ const produtoController = {
         }
 
     },
-    atualizarProduto: async(req, res)=>{
+    atualizarProduto: async (req, res) => {
         try {
-            const {idProduto} =req.params;
-            const {nomeProduto, precoProduto}= req.body;
-// validação de UUID(unico universalmente ID)
-            if(idProduto.length !=36){
-                return res.status(400).json({erro: 'id do produto invalido!'});
+            const { idProduto } = req.params;
+            const { nomeProduto, precoProduto } = req.body;
+            // validação de UUID(unico universalmente ID)
+            if (idProduto.length != 36) {
+                return res.status(400).json({ erro: 'id do produto invalido!' });
             }
-            const produto =await produtoModel.buscarUM(idProduto);//busca pelo banco de dados
+            const produto = await produtoModel.buscarUM(idProduto);//busca pelo banco de dados
 
-            if(!produto || produto.length !==1 ){
-                return res.status(404).json({error:'Produto não encontrado'});
-                
+            if (!produto || produto.length !== 1) {
+                return res.status(404).json({ error: 'Produto não encontrado' });
+
             }
             const produtoAtual = produto[0];
             const nomeAtualizado = nomeProduto ?? produtoAtual.nomeProduto;
@@ -70,13 +70,33 @@ const produtoController = {
             //verifica se ja exiate um preco e se não esta vazio 
 
             await produtoModel.atualizarProduto(idProduto, nomeAtualizado, precoAtualizado);
-            res.status(200).json({message:'Produto atualizado com sucesso!'});
+            res.status(200).json({ message: 'Produto atualizado com sucesso!' });
 
         } catch (error) {
-            console.erro('Erro ao atuaizar produto', error);
-            res.status(500).json({erro: 'Erro interno no servidor ao atualizar produto!'});
+            console.error('Erro ao atuaizar produto', error);
+            res.status(500).json({ erro: 'Erro interno no servidor ao atualizar produto!' });
         }
 
+    },
+    deletarProduto: async (req, res) => {
+        try {
+            const {idProduto}= req.params;
+             if (idProduto.length != 36) {
+                return res.status(400).json({ erro: 'id do produto invalido!' });
+            }
+            const produto = await produtoModel.buscarUM(idProduto);//busca pelo banco de dados
+
+            if (!produto || produto.length !== 1) {
+                return res.status(404).json({ error: 'Produto não encontrado' });
+
+            }
+            await produtoModel.deletarProduto(idProduto);
+            res.status(200).json({message: "Produto deletado com sucesso"});
+        } catch (error) {
+             console.error('Erro ao deletar produto', error);
+            res.status(500).json({ erro: 'Erro interno no servidor ao deletar produto!' });
+        }
+        
     }
 }
 
